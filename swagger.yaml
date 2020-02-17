@@ -1,0 +1,47 @@
+swagger: "2.0"
+info:
+  title: Very Smart API - YOUR_NAME
+  description: API example
+  version: 1.0.0
+tags:
+- description: Operations on sentences.
+  name: sentence
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /sentence/{pivot_sentence}:rank:
+    post:
+      operationId: app.flask.routes.Sentence.post
+      summary: Rank input sentences
+      tags:
+        - sentence
+      parameters:
+        - description: Input context
+          in: body
+          name: payload
+          required: true
+          schema:
+            type: object
+            properties:
+              items:
+                type: array
+                items:
+                  type: string
+      responses:
+        200:
+          description: OK
+    parameters:
+      - name: pivot_sentence
+        in: path
+        required: true
+        type: string
+#security:
+#  - api_key: []
+#securityDefinitions:
+#  api_key:
+#    type: apiKey
+#    name: key
+#    in: query
+#    x-apikeyInfoFunc: app.flask.auth.apikey_validation
