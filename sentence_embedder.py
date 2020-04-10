@@ -4,6 +4,7 @@ import tensorflow_hub as hub
 # import model as Keraslayer
 module_url = "https://tfhub.dev/google/nnlm-en-dim128/2"
 embed = hub.KerasLayer(module_url, name='embedding_output')
+# embed(["Hello World"]) works in eager execution.
 
 # create a new model
 model = tf.keras.Sequential()
@@ -16,3 +17,8 @@ model.add(embed)
 
 # save the model
 model.save("./saved_model")
+
+# model(["Hello World"]) however does not work in eager execution.
+# If you reload the model and execute, it works:
+saved_model = tf.saved_model.load('./saved_model')
+print("Prediction example : ", saved_model(["Hello World"]))
